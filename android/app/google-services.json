@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "221486222971",
+    "project_id": "alleventsapp-ce448",
+    "storage_bucket": "alleventsapp-ce448.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:221486222971:android:67b8ec508af08810b19cde",
+        "android_client_info": {
+          "package_name": "com.alleventsapp.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "221486222971-b4iv3ognsvtr0iikc9vm1h4r2u97n7aj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alleventsapp.com",
+            "certificate_hash": "ce8bca9f3c6b4297d7e6c7b7cdd67fc75dc7206f"
+          }
+        },
+        {
+          "client_id": "221486222971-klsde76j5blr8qnqu1skkiafcvklgjpo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsOtSNEVEbRbIpmIwrxCJ9sUdc-YfeYnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "221486222971-klsde76j5blr8qnqu1skkiafcvklgjpo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "221486222971-u0pgqa12gtvtukbns0pqmcm2ahk9aj4u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.alleventsapp.com"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:221486222971:android:dbd4f31d9571c4f6b19cde",
+        "android_client_info": {
+          "package_name": "com.alleventsapp.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "221486222971-klsde76j5blr8qnqu1skkiafcvklgjpo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsOtSNEVEbRbIpmIwrxCJ9sUdc-YfeYnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "221486222971-klsde76j5blr8qnqu1skkiafcvklgjpo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "221486222971-u0pgqa12gtvtukbns0pqmcm2ahk9aj4u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.alleventsapp.com"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
