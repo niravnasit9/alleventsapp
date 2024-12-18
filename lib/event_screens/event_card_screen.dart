@@ -1,4 +1,4 @@
-import 'package:alleventsapp/api_models/api_model.dart';
+import 'package:alleventsapp/models/api_model.dart';
 import 'package:flutter/material.dart';
 import 'event_details_screen.dart';
 class EventCard extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:alleventsapp/api_models/api_model.dart';
+import 'package:alleventsapp/models/api_model.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -20,7 +20,7 @@ class EventDetailsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                  // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
                   height: 250,
                   width: double.infinity,
                   child: Image.network(event.bannerUrl)),
@@ -144,7 +144,6 @@ class EventDetailsScreen extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-
               const SizedBox(height: 20),
               const Text(
                 "Date & Time",
@@ -200,15 +199,22 @@ class EventDetailsScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16),
-
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
-                onPressed: () {
-                  launchUrl(Uri.parse(event.eventUrl));
-                },
-                child: const Text(
-                  "View Details Online",
-                  style: TextStyle(color: Colors.white),
+              Center(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6))),
+                    onPressed: () {
+                      launchUrl(Uri.parse(event.eventUrl));
+                    },
+                    child: const Text(
+                      "View Details Online",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
               ),
             ],

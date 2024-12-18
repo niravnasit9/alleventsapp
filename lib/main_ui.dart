@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'api_models/api_model.dart';
-import 'api_models/category_model.dart';
+import 'models/api_model.dart';
+import 'models/category_model.dart';
 import 'event_screens/event_card_screen.dart';
 import 'event_screens/event_details_screen.dart';
-
 
 class MainPage extends StatefulWidget {
   @override
@@ -17,14 +16,15 @@ class _MainPageState extends State<MainPage> {
   String selectedCategory = 'All';
   bool isGridView = true;
   bool isData = true;
+  List<AllCategory> result = [];
+
+  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
   @override
   void initState() {
     super.initState();
     getData();
   }
-
-  List<AllCategory> result = [];
 
   Future<void> getData() async {
     var url = "https://allevents.s3.amazonaws.com/tests/categories.json";
@@ -50,8 +50,6 @@ class _MainPageState extends State<MainPage> {
       rethrow;
     }
   }
-
-  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
   void _showListInBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -172,48 +170,44 @@ class _MainPageState extends State<MainPage> {
             ],
           ),
           Expanded(
-              child: isData == false
-                  ? FutureBuilder<List<Event>>(
-                      future: eventsFuture,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        } else if (snapshot.hasError) {
-                          return Center(
-                              child: Text('Error: ${snapshot.error}'));
-                        } else if (!snapshot.hasData ||
-                            snapshot.data!.isEmpty) {
-                          return const Center(
-                              child: Text('No events available.'));
-                        }
+            child: isData == false
+                ? FutureBuilder<List<Event>>(
+                    future: eventsFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return const Center(
+                            child: Text('No events available.'));
+                      }
 
-                        final events = snapshot.data!;
+                      final events = snapshot.data!;
 
-                        if (isGridView) {
-                          return GridView.builder(
-                            padding: const EdgeInsets.all(8.0),
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2, // Number of columns
-                              crossAxisSpacing: 8.0,
-                              mainAxisSpacing: 8.0,
-                              childAspectRatio: 1.3, // Square items
-                            ),
-                            itemCount: events.length,
-                            itemBuilder: (context, index) {
-                              final event = events[index];
-                              return EventCard(event: event);
-                            },
-                          );
-                        } else {
-                          return ListView.builder(
-                            padding: const EdgeInsets.all(8.0),
-                            itemCount: events.length,
-                            itemBuilder: (context, index) {
-                              final event = events[index];
-                              return GestureDetector(
+                      if (isGridView) {
+                        return GridView.builder(
+                          padding: const EdgeInsets.all(8.0),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, // Number of columns
+                            crossAxisSpacing: 8.0,
+                            mainAxisSpacing: 8.0,
+                            childAspectRatio: 1.3, // Square items
+                          ),
+                          itemCount: events.length,
+                          itemBuilder: (context, index) {
+                            final event = events[index];
+                            return EventCard(event: event);
+                          },
+                        );
+                      } else {
+                        return ListView.builder(
+                          padding: const EdgeInsets.all(8.0),
+                          itemCount: events.length,
+                          itemBuilder: (context, index) {
+                            final event = events[index];
+                            return GestureDetector(
                                 onTap: () {
                                   Navigator.push(
                                     context,
@@ -224,103 +218,101 @@ class _MainPageState extends State<MainPage> {
                                   );
                                 },
                                 child: SizedBox(
-                                  height: 150,
-                                  child: Card(
-                                    child: Row(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 8.0),
-                                          child: Container(
-                                            height: 120,
-                                            width: 180,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                    event.bannerUrl.toString()),
-                                                fit: BoxFit.cover,
-                                              ),
+                                    height: 150,
+                                    child: Card(
+                                        child: Row(children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
+                                        child: Container(
+                                          height: 120,
+                                          width: 180,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                  event.bannerUrl.toString()),
+                                              fit: BoxFit.cover,
                                             ),
                                           ),
                                         ),
-                                        Expanded(
+                                      ),
+                                      Expanded(
                                           child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Text(
-                                                  event.eventName,
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 22,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          bottom: 8.0),
-                                                  child: Text(
-                                                    event.venue.city,
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 16,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Row(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
-                                                          .spaceBetween,
+                                                          .spaceEvenly,
                                                   children: [
                                                     Text(
-                                                      event.label,
+                                                      event.eventName,
                                                       style: const TextStyle(
-                                                        color: Colors.grey,
                                                         fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize: 16,
+                                                            FontWeight.w500,
+                                                        fontSize: 22,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                       ),
                                                     ),
-                                                    const Row(
-                                                      children: [
-                                                        Icon(
-                                                          Icons
-                                                              .star_border_outlined,
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              bottom: 8.0),
+                                                      child: Text(
+                                                        event.venue.city,
+                                                        style: const TextStyle(
                                                           color: Colors.grey,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 16,
                                                         ),
-                                                        Icon(
-                                                          Icons.upload_outlined,
-                                                          color: Colors.grey,
-                                                        ),
-                                                      ],
+                                                      ),
                                                     ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        }
-                      },
-                    )
-                  : const Center(child: CircularProgressIndicator())),
+                                                    Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            event.label,
+                                                            style:
+                                                                const TextStyle(
+                                                              color:
+                                                                  Colors.grey,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                          const Row(children: [
+                                                            Icon(
+                                                              Icons
+                                                                  .star_border_outlined,
+                                                              color:
+                                                                  Colors.grey,
+                                                            ),
+                                                            Icon(
+                                                              Icons
+                                                                  .upload_outlined,
+                                                              color:
+                                                                  Colors.grey,
+                                                            )
+                                                          ])
+                                                        ])
+                                                  ])))
+                                    ]))));
+                          },
+                        );
+                      }
+                    })
+                : const Center(child: CircularProgressIndicator()),
+          ),
         ],
       ),
     );

@@ -1,26 +1,10 @@
 import 'package:alleventsapp/auth_screens/login.dart';
-import 'package:alleventsapp/main_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/auth_controller.dart';
 
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
-
-  @override
-  _SignUpScreenState createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
-  bool _obscurePassword = true;
-  bool _obscureConfirmPassword = true;
-  bool isLoading = false;
-
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +12,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     return Scaffold(
       body: Container(
-        color: Colors.blueGrey[50], // Background color
+        color: Colors.blueGrey[50],
         padding: const EdgeInsets.all(16.0),
         child: Center(
           child: SingleChildScrollView(
@@ -45,14 +29,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 const SizedBox(height: 20),
 
-                // SignUp Form with validation
+                /// SignUp Form
                 Form(
-                  key: _formKey,
+                  key: authController.formKey,
                   child: Column(
                     children: [
-                      // Username Field
+                      /// Username
                       TextFormField(
-                        controller: usernameController,
+                        controller: authController.usernameController,
                         decoration: const InputDecoration(
                           labelText: 'Username',
                           border: OutlineInputBorder(),
@@ -60,18 +44,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           filled: true,
                           fillColor: Colors.white,
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Username is required';
-                          }
-                          return null;
-                        },
+                        validator: authController.validateUsername,
                       ),
                       const SizedBox(height: 20),
 
-                      // Email Field with Validation
+                      /// Email
                       TextFormField(
-                        controller: emailController,
+                        controller: authController.emailController,
                         decoration: const InputDecoration(
                           labelText: 'Email',
                           border: OutlineInputBorder(),
@@ -79,24 +58,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           filled: true,
                           fillColor: Colors.white,
                         ),
-                        keyboardType: TextInputType.emailAddress,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Email is required';
-                          }
-                          final emailRegex = RegExp(r'^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$');
-                          if (!emailRegex.hasMatch(value)) {
-                            return 'Please enter a valid email';
-                          }
-                          return null;
-                        },
+                        validator: authController.validateEmail,
                       ),
                       const SizedBox(height: 20),
 
-                      // Password Field with Eye Icon
-                      TextFormField(
-                        controller: passwordController,
-                        obscureText: _obscurePassword,
+                      /// Password
+                      Obx(() => TextFormField(
+                        controller: authController.passwordController,
+                        obscureText: authController.obscurePassword.value,
                         decoration: InputDecoration(
                           labelText: 'Password',
                           border: const OutlineInputBorder(),
@@ -105,31 +74,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           fillColor: Colors.white,
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                              authController.obscurePassword.value
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                             ),
                             onPressed: () {
-                              setState(() {
-                                _obscurePassword = !_obscurePassword;
-                              });
+                              authController.obscurePassword.toggle();
                             },
                           ),
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Password is required';
-                          }
-                          if (value.length < 6) {
-                            return 'Password must be at least 6 characters';
-                          }
-                          return null;
-                        },
-                      ),
+                        validator: authController.validatePassword,
+                      )),
                       const SizedBox(height: 20),
 
-                      // Confirm Password Field with Eye Icon
-                      TextFormField(
-                        controller: confirmPasswordController,
-                        obscureText: _obscureConfirmPassword,
+                      /// Confirm Password
+                      Obx(() => TextFormField(
+                        controller: authController.confirmPasswordController,
+                        obscureText: authController.obscureConfirmPassword.value,
                         decoration: InputDecoration(
                           labelText: 'Confirm Password',
                           border: const OutlineInputBorder(),
@@ -138,120 +99,73 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           fillColor: Colors.white,
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _obscureConfirmPassword ? Icons.visibility : Icons.visibility_off,
+                              authController.obscureConfirmPassword.value
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                             ),
                             onPressed: () {
-                              setState(() {
-                                _obscureConfirmPassword = !_obscureConfirmPassword;
-                              });
+                              authController.obscureConfirmPassword.toggle();
                             },
                           ),
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please confirm your password';
-                          }
-                          if (value != passwordController.text) {
-                            return 'Passwords do not match';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
+                        validator: authController.validateConfirmPassword,
+                      )),
 
-                      Center(
-                        child: isLoading
-                            ? const CircularProgressIndicator()
-                            : ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blueAccent,
-                            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                          ),
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              setState(() {
-                                isLoading = true;
-                              });
-                              try {
-                                await authController.signUp(
-                                  emailController.text.trim(),
-                                  passwordController.text.trim(),
-                                );
-                                setState(() {
-                                  isLoading = false;
-                                });
-                                Get.snackbar("Success", "Account created successfully",
-                                    snackPosition: SnackPosition.BOTTOM);
-                              } catch (e) {
-                                setState(() {
-                                  isLoading = false;
-                                });
-                                Get.snackbar("Error", e.toString(),
-                                    snackPosition: SnackPosition.BOTTOM);
-                              }
-                            }
-                          },
-                          child: const Text("Sign Up", style: TextStyle(fontSize: 18)),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-
-                      /// Google Sign-In Button
-                      Center(
-                        child: ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.redAccent,
-                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                          ),
-                          onPressed: () {
-                            // Trigger Google sign-in
-                            authController.googleSignInMethod();
-                          },
-                          icon: const Icon(Icons.login, color: Colors.white),
-                          label: const Text(
-                            "Sign in with Google",
-                            style: TextStyle(fontSize: 18, color: Colors.white),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
 
                       /// Login Redirect Button
-                      Center(
+                      Align(
+                        alignment: Alignment.topLeft,
                         child: TextButton(
                           onPressed: () => Get.to(const LoginScreen()),
                           child: const Text(
                             "Already have an account? Login here",
                             style: TextStyle(
-                              color: Colors.blue,
+                              color: Colors.black,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                       ),
+                      const SizedBox(height: 20),
 
-                      /// Login Redirect Button
-                      Center(
-                        child: TextButton(
-                          onPressed: () => Get.to(MainPage()),
-                          child: const Text(
-                            "Direct Access",
+                      /// Signup Button
+                      Obx(() => authController.isLoading.value
+                          ? const CircularProgressIndicator()
+                          : ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 50, vertical: 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        onPressed: authController.signUp,
+                        child: const Text("Sign Up",
                             style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
+                                fontSize: 18, color: Colors.white)),
+                      )),
+                      const SizedBox(height: 20),
+
+                      /// Google Sign-In Button
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.redAccent,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
                           ),
                         ),
+                        onPressed: authController.googleSignInMethod,
+                        icon: const Icon(Icons.login, color: Colors.white),
+                        label: const Text(
+                          "Sign in with Google",
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
                       ),
-
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
