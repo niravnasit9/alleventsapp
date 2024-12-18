@@ -50,27 +50,28 @@ class LoginScreen extends StatelessWidget {
 
                       /// Password
                       Obx(() => TextFormField(
-                        controller: authController.passwordController,
-                        obscureText: authController.obscureLoginPassword.value,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          border: const OutlineInputBorder(),
-                          prefixIcon: const Icon(Icons.lock),
-                          filled: true,
-                          fillColor: Colors.white,
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              authController.obscureLoginPassword.value
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
+                            controller: authController.passwordController,
+                            obscureText:
+                                authController.obscureLoginPassword.value,
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              border: const OutlineInputBorder(),
+                              prefixIcon: const Icon(Icons.lock),
+                              filled: true,
+                              fillColor: Colors.white,
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  authController.obscureLoginPassword.value
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                ),
+                                onPressed: () {
+                                  authController.obscureLoginPassword.toggle();
+                                },
+                              ),
                             ),
-                            onPressed: () {
-                              authController.obscureLoginPassword.toggle();
-                            },
-                          ),
-                        ),
-                        validator: authController.validatePassword,
-                      )),
+                            validator: authController.validatePassword,
+                          )),
                       const SizedBox(height: TSpaces.spaceBtwTextFormFields),
 
                       /// Signup Redirect
@@ -78,7 +79,6 @@ class LoginScreen extends StatelessWidget {
                         alignment: Alignment.topLeft,
                         child: GestureDetector(
                           onTap: () {
-                            // Navigate to Sign Up screen
                             Get.to(const SignUpScreen());
                           },
                           child: const Text(
@@ -94,50 +94,46 @@ class LoginScreen extends StatelessWidget {
                       const SizedBox(height: TSpaces.defaultSpace),
 
                       /// Login Button
-                      Row(
-                        children: [
-                          Center(
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blueAccent,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 50, vertical: 15),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                              ),
-                              onPressed: authController.login,
-                              child: const Text("Login",
-                                  style:
+                      Center(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blueAccent,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          onPressed: authController.login,
+                          child: const Text("Login",
+                              style:
                                   TextStyle(fontSize: 18, color: Colors.white)),
-                            ),
-                          ),
-
-                          const SizedBox(height: TSpaces.defaultSpace),
-
-                          /// Google Sign-In Button
-                          ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.redAccent,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 30, vertical: 15),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                            ),
-                            onPressed: authController.googleSignInMethod,
-                            icon: const Icon(Icons.login, color: Colors.white),
-                            label: const Text(
-                              "Sign in with Google",
-                              style: TextStyle(fontSize: 18, color: Colors.white),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ],
                   ),
                 ),
+                const SizedBox(height: TSpaces.defaultSpace),
 
+                /// Google Sign-In Button
+                Center(
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    onPressed: authController.googleSignInMethod,
+                    icon: const Icon(Icons.login, color: Colors.white),
+                    label: const Text(
+                      "Sign in with Google",
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

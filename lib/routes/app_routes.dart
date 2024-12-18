@@ -1,6 +1,6 @@
 import 'package:alleventsapp/auth_screens/login.dart';
 import 'package:alleventsapp/auth_screens/sign_up.dart';
-import 'package:alleventsapp/main_ui.dart';
+import 'package:alleventsapp/main_screen.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {

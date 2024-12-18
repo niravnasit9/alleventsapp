@@ -1,5 +1,5 @@
 import 'package:alleventsapp/auth_screens/login.dart';
-import 'package:alleventsapp/main_ui.dart';
+import 'package:alleventsapp/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';

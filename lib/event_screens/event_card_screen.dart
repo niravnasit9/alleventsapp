@@ -1,10 +1,11 @@
-import 'package:alleventsapp/models/api_model.dart';
+import 'package:alleventsapp/models/details_model.dart';
 import 'package:flutter/material.dart';
 import 'event_details_screen.dart';
-class EventCard extends StatelessWidget {
-  final Event event;
 
-  const EventCard({required this.event});
+class DetailCard extends StatelessWidget {
+  final DetailsModel event;
+
+  const DetailCard({required this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -21,42 +22,40 @@ class EventCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
-        elevation: 4,
+        elevation: 0.4,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: event.bannerUrl == ""
                   ? const Center(
-                  child: Icon(
-                    Icons.picture_in_picture_alt,
-                    size: 100,
-                    color: Colors.red,
-                  ))
+                      child: Icon(
+                      Icons.image_not_supported,
+                      size: 50,
+                      color: Colors.grey,
+                    ))
                   : Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                        event.bannerUrl,
-
-                      )),
-                  borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(10.0),
-                      topLeft: Radius.circular(10.0)),
-                  color: Colors.white,
-                ),
-              ),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                              event.bannerUrl,
+                            )),
+                        borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(10.0),
+                            topLeft: Radius.circular(10.0)),
+                        color: Colors.white,
+                      ),
+                    ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                event.eventName,
+                event.eventNameRaw,
                 style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
-                  overflow:
-                  TextOverflow.ellipsis,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

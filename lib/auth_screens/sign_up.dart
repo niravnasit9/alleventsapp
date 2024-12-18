@@ -130,7 +130,7 @@ class SignUpScreen extends StatelessWidget {
 
                       /// Signup Button
                       Obx(() => authController.isLoading.value
-                          ? const CircularProgressIndicator()
+                          ? const CircularProgressIndicator(color: Colors.black,)
                           : ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blueAccent,

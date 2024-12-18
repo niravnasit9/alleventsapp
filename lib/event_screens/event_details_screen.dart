@@ -1,10 +1,10 @@
 import 'package:alleventsapp/constants/sizes.dart';
-import 'package:alleventsapp/models/api_model.dart';
+import 'package:alleventsapp/models/details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EventDetailsScreen extends StatelessWidget {
-  final Event event;
+  final DetailsModel event;
 
   const EventDetailsScreen({super.key, required this.event});
 
@@ -20,11 +20,30 @@ class EventDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                  // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                  height: 250,
-                  width: double.infinity,
-                  child: Image.network(event.bannerUrl)),
+              SizedBox(
+                width: double.infinity,
+                height: 250,
+                child: event.bannerUrl.isNotEmpty
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(12.0),
+                        child: Image.network(
+                          event.bannerUrl,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(
+                              Icons.image_not_supported,
+                              size: 50,
+                              color: Colors.grey,
+                            );
+                          },
+                        ),
+                      )
+                    : const Icon(
+                        Icons.image_not_supported,
+                        size: 50,
+                        color: Colors.grey,
+                      ),
+              ),
               const SizedBox(height: 16),
               Text(
                 event.eventNameRaw,
