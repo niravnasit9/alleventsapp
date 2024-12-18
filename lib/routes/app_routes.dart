@@ -9,7 +9,7 @@ class AppRoutes {
   static const String main = '/main';
 
   static final routes = [
-    GetPage(name: signup, page: () => SignUpScreen()),
+    GetPage(name: signup, page: () => const SignUpScreen()),
     GetPage(name: login, page: () => const LoginScreen()),
     GetPage(name: main, page: () => MainPage()),
   ];

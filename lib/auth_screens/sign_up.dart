@@ -1,4 +1,5 @@
 import 'package:alleventsapp/auth_screens/login.dart';
+import 'package:alleventsapp/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/auth_controller.dart';
@@ -19,7 +20,6 @@ class SignUpScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 50),
                 const Text(
                   "Create Account",
                   style: TextStyle(
@@ -27,7 +27,7 @@ class SignUpScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: Colors.black87),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: TSpaces.defaultSpace),
 
                 /// SignUp Form
                 Form(
@@ -46,7 +46,7 @@ class SignUpScreen extends StatelessWidget {
                         ),
                         validator: authController.validateUsername,
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: TSpaces.spaceBtwTextFormFields),
 
                       /// Email
                       TextFormField(
@@ -60,7 +60,7 @@ class SignUpScreen extends StatelessWidget {
                         ),
                         validator: authController.validateEmail,
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: TSpaces.spaceBtwTextFormFields),
 
                       /// Password
                       Obx(() => TextFormField(
@@ -85,7 +85,7 @@ class SignUpScreen extends StatelessWidget {
                         ),
                         validator: authController.validatePassword,
                       )),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: TSpaces.spaceBtwTextFormFields),
 
                       /// Confirm Password
                       Obx(() => TextFormField(
@@ -111,7 +111,6 @@ class SignUpScreen extends StatelessWidget {
                         validator: authController.validateConfirmPassword,
                       )),
 
-
                       /// Login Redirect Button
                       Align(
                         alignment: Alignment.topLeft,
@@ -127,7 +126,7 @@ class SignUpScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: TSpaces.defaultSpace),
 
                       /// Signup Button
                       Obx(() => authController.isLoading.value
@@ -146,7 +145,7 @@ class SignUpScreen extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 18, color: Colors.white)),
                       )),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: TSpaces.defaultSpace),
 
                       /// Google Sign-In Button
                       ElevatedButton.icon(
@@ -165,7 +164,6 @@ class SignUpScreen extends StatelessWidget {
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
-                      const SizedBox(height: 20),
                     ],
                   ),
                 ),

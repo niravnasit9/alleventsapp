@@ -1,3 +1,4 @@
+import 'package:alleventsapp/constants/sizes.dart';
 import 'package:alleventsapp/models/api_model.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -32,12 +33,12 @@ class EventDetailsScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: TSpaces.defaultSpace),
               const Text(
                 "Highlights",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: TSpaces.defaultSpace),
               Row(
                 children: [
                   const Padding(
@@ -99,12 +100,12 @@ class EventDetailsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: TSpaces.defaultSpace),
               const Text(
                 "About",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: TSpaces.defaultSpace),
               Wrap(
                 spacing: 8,
                 children: event.categories
@@ -144,12 +145,12 @@ class EventDetailsScreen extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: TSpaces.defaultSpace),
               const Text(
                 "Date & Time",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: TSpaces.defaultSpace),
               Row(
                 children: [
                   const Padding(
@@ -171,12 +172,12 @@ class EventDetailsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: TSpaces.defaultSpace),
               const Text(
                 "Location",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: TSpaces.defaultSpace),
               Row(
                 children: [
                   const Padding(

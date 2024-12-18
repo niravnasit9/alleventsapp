@@ -1,4 +1,5 @@
 import 'package:alleventsapp/auth_screens/sign_up.dart';
+import 'package:alleventsapp/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/auth_controller.dart';
@@ -19,7 +20,6 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 50),
                 const Text(
                   "Login",
                   style: TextStyle(
@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: Colors.black87),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: TSpaces.defaultSpace),
 
                 Form(
                   key: authController.loginFormKey,
@@ -46,7 +46,7 @@ class LoginScreen extends StatelessWidget {
                         keyboardType: TextInputType.emailAddress,
                         validator: authController.validateEmail,
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: TSpaces.spaceBtwTextFormFields),
 
                       /// Password
                       Obx(() => TextFormField(
@@ -71,8 +71,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                         validator: authController.validatePassword,
                       )),
-
-                      const SizedBox(height: 20),
+                      const SizedBox(height: TSpaces.spaceBtwTextFormFields),
 
                       /// Signup Redirect
                       Align(
@@ -92,49 +91,53 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: TSpaces.defaultSpace),
 
-                      Center(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blueAccent,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 50, vertical: 15),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
+                      /// Login Button
+                      Row(
+                        children: [
+                          Center(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blueAccent,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 50, vertical: 15),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                              ),
+                              onPressed: authController.login,
+                              child: const Text("Login",
+                                  style:
+                                  TextStyle(fontSize: 18, color: Colors.white)),
                             ),
                           ),
-                          onPressed: authController.login,
-                          child: const Text("Login",
-                              style:
-                              TextStyle(fontSize: 18, color: Colors.white)),
-                        ),
+
+                          const SizedBox(height: TSpaces.defaultSpace),
+
+                          /// Google Sign-In Button
+                          ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.redAccent,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            onPressed: authController.googleSignInMethod,
+                            icon: const Icon(Icons.login, color: Colors.white),
+                            label: const Text(
+                              "Sign in with Google",
+                              style: TextStyle(fontSize: 18, color: Colors.white),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
 
-                /// Google Sign-In Button
-                Center(
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.redAccent,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    onPressed: authController.googleSignInMethod,
-                    icon: const Icon(Icons.login, color: Colors.white),
-                    label: const Text(
-                      "Sign in with Google",
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
               ],
             ),
           ),
