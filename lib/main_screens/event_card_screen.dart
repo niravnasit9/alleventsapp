@@ -28,7 +28,7 @@ class EventCard extends StatelessWidget {
           children: [
             Expanded(
               child: event.bannerUrl == ""
-                  ? Center(
+                  ? const Center(
                   child: Icon(
                     Icons.picture_in_picture_alt,
                     size: 100,
@@ -42,7 +42,7 @@ class EventCard extends StatelessWidget {
                         event.bannerUrl,
 
                       )),
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(10.0),
                       topLeft: Radius.circular(10.0)),
                   color: Colors.white,

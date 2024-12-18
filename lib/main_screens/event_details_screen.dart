@@ -11,7 +11,7 @@ class EventDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(event.eventName),
+        title: Text(event.eventNameRaw),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -19,42 +19,92 @@ class EventDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network(event.bannerUrl, fit: BoxFit.cover),
+              Container(
+                // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                  height: 250,
+                  width: double.infinity,
+                  child: Image.network(event.bannerUrl)),
               const SizedBox(height: 16),
               Text(
-                event.eventName,
+                event.eventNameRaw,
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const SizedBox(height: 20),
+              const Text(
+                "Highlights",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(right: 15.0),
+                    child: Icon(
+                      Icons.auto_graph_sharp,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    "Featured in ${event.venue.city}",
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
               const SizedBox(height: 8),
-              Text.rich(
-                TextSpan(
-                  text: "Location: ",
-                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),
-                  children: [
-                    TextSpan(
-                      text: event.location,
-                      style: TextStyle(fontWeight: FontWeight.normal),
+              Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(right: 15.0),
+                    child: Icon(
+                      Icons.edit_calendar,
+                      color: Colors.grey,
                     ),
-                  ],
-                ),
-              ),
-
-              Text.rich(
-                TextSpan(
-                  text: "Time: ",
-                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),
-                  children: [
-                    TextSpan(
-                      text: "${event.startTimeDisplay} - ${event.endTimeDisplay}",
-                      style: TextStyle(fontWeight: FontWeight.normal),
+                  ),
+                  Text(
+                    event.startTimeDisplay,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(right: 15.0),
+                    child: Icon(
+                      Icons.location_on_outlined,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      event.location,
+                      style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          overflow: TextOverflow.ellipsis),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                "About",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(height: 20),
               Wrap(
                 spacing: 8,
                 children: event.categories
@@ -62,12 +112,104 @@ class EventDetailsScreen extends StatelessWidget {
                     .toList(),
               ),
               const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      event.location,
+                      style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          overflow: TextOverflow.ellipsis),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                event.venue.street,
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                event.venue.fullAddress,
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+
+              const SizedBox(height: 20),
+              const Text(
+                "Date & Time",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(right: 15.0),
+                    child: Icon(
+                      Icons.watch_later_outlined,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      event.startTimeDisplay,
+                      style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          overflow: TextOverflow.ellipsis),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                "Location",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(right: 15.0),
+                    child: Icon(
+                      Icons.location_on_outlined,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      event.location,
+                      style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          overflow: TextOverflow.ellipsis),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
                 onPressed: () {
                   launchUrl(Uri.parse(event.eventUrl));
                 },
-                child: const Text("View Details Online",style: TextStyle(color: Colors.white),),
+                child: const Text(
+                  "View Details Online",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ],
           ),
