@@ -1,6 +1,6 @@
 import 'package:alleventsapp/api_models/api_model.dart';
-import 'package:alleventsapp/main_screens/event_details_screen.dart';
 import 'package:flutter/material.dart';
+import 'event_details_screen.dart';
 class EventCard extends StatelessWidget {
   final Event event;
 
@@ -10,7 +10,6 @@ class EventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigate to detail screen with event details
         Navigator.push(
           context,
           MaterialPageRoute(

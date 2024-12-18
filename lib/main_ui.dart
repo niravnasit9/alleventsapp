@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'api_models/api_model.dart';
 import 'api_models/category_model.dart';
-import 'main_screens/event_card_screen.dart';
-import 'main_screens/event_details_screen.dart';
+import 'event_screens/event_card_screen.dart';
+import 'event_screens/event_details_screen.dart';
+
 
 class MainPage extends StatefulWidget {
   @override
@@ -211,14 +212,14 @@ class _MainPageState extends State<MainPage> {
                             padding: const EdgeInsets.all(8.0),
                             itemCount: events.length,
                             itemBuilder: (context, index) {
-                              final event = events[index]; // Get the event for the current index
+                              final event = events[index];
                               return GestureDetector(
                                 onTap: () {
-                                  // Navigate to the EventDetailsScreen and pass the event
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => EventDetailsScreen(event: event),
+                                      builder: (context) =>
+                                          EventDetailsScreen(event: event),
                                     ),
                                   );
                                 },
@@ -228,14 +229,17 @@ class _MainPageState extends State<MainPage> {
                                     child: Row(
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(left: 8.0),
+                                          padding:
+                                              const EdgeInsets.only(left: 8.0),
                                           child: Container(
                                             height: 120,
                                             width: 180,
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
                                               image: DecorationImage(
-                                                image: NetworkImage(event.bannerUrl.toString()),
+                                                image: NetworkImage(
+                                                    event.bannerUrl.toString()),
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
@@ -245,43 +249,53 @@ class _MainPageState extends State<MainPage> {
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 Text(
                                                   event.eventName,
                                                   style: const TextStyle(
                                                     fontWeight: FontWeight.w500,
                                                     fontSize: 22,
-                                                    overflow: TextOverflow.ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 8.0),
                                                   child: Text(
                                                     event.venue.city,
                                                     style: const TextStyle(
                                                       color: Colors.grey,
-                                                      fontWeight: FontWeight.w600,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                       fontSize: 16,
                                                     ),
                                                   ),
                                                 ),
                                                 Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: [
                                                     Text(
                                                       event.label,
                                                       style: const TextStyle(
                                                         color: Colors.grey,
-                                                        fontWeight: FontWeight.w600,
+                                                        fontWeight:
+                                                            FontWeight.w600,
                                                         fontSize: 16,
                                                       ),
                                                     ),
                                                     const Row(
                                                       children: [
                                                         Icon(
-                                                          Icons.star_border_outlined,
+                                                          Icons
+                                                              .star_border_outlined,
                                                           color: Colors.grey,
                                                         ),
                                                         Icon(
@@ -302,8 +316,7 @@ class _MainPageState extends State<MainPage> {
                                 ),
                               );
                             },
-                          )
-                          ;
+                          );
                         }
                       },
                     )

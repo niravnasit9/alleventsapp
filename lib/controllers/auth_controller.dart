@@ -8,8 +8,6 @@ import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
-
 
   Rx<User?> firebaseUser = Rx<User?>(null);
 
@@ -37,7 +35,6 @@ class AuthController extends GetxController {
   /// Sign in with Google
 
   googleSignInMethod() async {
-    //_showDialog(true);
     GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
     try {
       GoogleSignInAuthentication googleAuth =
@@ -56,15 +53,8 @@ class AuthController extends GetxController {
       print("PhotoUrl : " + tempUser.photoURL.toString());
       print("User Details : " + tempUser.toString());
 
-      if (tempUser != null) {
-        Get.off(MainPage());
-      }  // if result not null we simply call the MaterialpageRoute,
-      // for go to the HomePage screen
-
-      // ScaffoldMessenger.of(context)
-      //     .showSnackBar(SnackBar(content: Text('Login Successfully')));
-    } catch (e) {
-      // _showDialog(false);
+      Get.off(MainPage());
+        } catch (e) {
       print("Error Message : " + e.toString());
     }
   }
