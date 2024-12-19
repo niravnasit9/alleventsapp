@@ -2,10 +2,10 @@ import 'package:alleventsapp/models/details_model.dart';
 import 'package:flutter/material.dart';
 import 'event_details_screen.dart';
 
-class DetailCard extends StatelessWidget {
-  final DetailsModel event;
+class Event_Detail_Card_Grid extends StatelessWidget {
+  final Event_Details_Model event;
 
-  const DetailCard({required this.event});
+  const Event_Detail_Card_Grid({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {

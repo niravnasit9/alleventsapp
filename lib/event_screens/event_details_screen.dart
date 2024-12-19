@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EventDetailsScreen extends StatelessWidget {
-  final DetailsModel event;
+  final Event_Details_Model event;
 
   const EventDetailsScreen({super.key, required this.event});
 

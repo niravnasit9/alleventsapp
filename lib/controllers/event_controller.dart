@@ -4,7 +4,7 @@ import '../services/api_service.dart';
 import '../models/category_model.dart';
 
 class EventController extends GetxController {
-  var events = <DetailsModel>[].obs;
+  var events = <Event_Details_Model>[].obs;
   var categories = <AllCategory>[].obs;
   var selectedCategory = 'All'.obs;
   var isGridView = true.obs;

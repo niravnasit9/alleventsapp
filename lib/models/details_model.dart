@@ -1,4 +1,4 @@
-class DetailsModel {
+class Event_Details_Model {
   final String eventId;
   final String eventName;
   final String eventNameRaw;
@@ -16,7 +16,7 @@ class DetailsModel {
   final String label;
   final int featured;
 
-  DetailsModel({
+  Event_Details_Model({
     required this.eventId,
     required this.eventName,
     required this.eventNameRaw,
@@ -35,8 +35,8 @@ class DetailsModel {
     required this.featured,
   });
 
-  factory DetailsModel.fromJson(Map<String, dynamic> json) {
-    return DetailsModel(
+  factory Event_Details_Model.fromJson(Map<String, dynamic> json) {
+    return Event_Details_Model(
       eventId: json['event_id'],
       eventName: json['eventname'],
       eventNameRaw: json['eventname_raw'],

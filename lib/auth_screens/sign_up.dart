@@ -115,7 +115,10 @@ class SignUpScreen extends StatelessWidget {
                       Align(
                         alignment: Alignment.topLeft,
                         child: TextButton(
-                          onPressed: () => Get.to(const LoginScreen()),
+                          onPressed: () {
+                            authController.clearFields(); // Clear all fields before navigating
+                            Get.off(const LoginScreen());
+                          },
                           child: const Text(
                             "Already have an account? Login here",
                             style: TextStyle(

@@ -74,6 +74,7 @@ class AuthController extends GetxController {
         password: passwordController.text.trim(),
       );
       Get.snackbar("Success", "Signup successful! Redirecting to login.");
+      clearFields();
       Get.off(const LoginScreen());
     } catch (e) {
       Get.snackbar("Error", e.toString());
@@ -114,4 +115,13 @@ class AuthController extends GetxController {
       Get.snackbar("Error", e.toString());
     }
   }
+
+  /// Clear all form fields
+  void clearFields() {
+    emailController.clear();
+    passwordController.clear();
+    usernameController.clear();
+    confirmPasswordController.clear();
+  }
+
 }
