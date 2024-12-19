@@ -92,4 +92,4 @@
 
 #  7. Contact Information :-
    For support or questions, contact[Nirav Nasit / niravnasit0351@gmail.com] or
-   visit [https://github.com/niravnasit9/alleventsapp/].
+   visit [https://github.com/niravnasit9/alleventsapp/]. for further update regarding this app
