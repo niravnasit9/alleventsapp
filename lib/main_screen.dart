@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../controllers/event_controller.dart';
 import 'bottom_sheet/category_bottom_sheet.dart';
 import 'event_screens/event_card_grid.dart';
-import 'event_screens/event_details_screen.dart';
 
 class MainPage extends StatelessWidget {
   final EventController controller = Get.put(EventController());
