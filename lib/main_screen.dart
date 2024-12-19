@@ -1,3 +1,4 @@
+
 import 'package:alleventsapp/auth_screens/login.dart';
 import 'package:alleventsapp/event_screens/event_card_list.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +86,7 @@ class MainPage extends StatelessWidget {
                           itemCount: controller.events.length,
                           itemBuilder: (context, index) {
                             final event = controller.events[index];
-                            return Event_Detail_Card_Grid(event: event);
+                            return EventDetailCardGrid(event: event);
                           },
                         )
                       : ListView.builder(
